@@ -5,98 +5,10 @@
       "prefix": "!",
       "debug": true
   },
-  "rvn": {
-    "paytxfee": .01,
+  "snat": {
+    "paytxfee": .1,
     "config": {
-      "port": 3335,
-      "user": "username",
-      "pass": "Do-Not-Use-This-Password-Youll-Be-Hacked-For-all-Teh-Moneys!"
-    }
-  },
-  "doge": {
-    "paytxfee": 1,
-    "config": {
-      "port": 3336,
-      "user": "username",
-      "pass": "Do-Not-Use-This-Password-Youll-Be-Hacked-For-all-Teh-Moneys!"
-    }
-  },
-  "lbc": {
-    "paytxfee": .01,
-    "config": {
-      "port": 3337,
-      "user": "username",
-      "pass": "Do-Not-Use-This-Password-Youll-Be-Hacked-For-all-Teh-Moneys!"
-    }
-  },
-  "phase": {
-    "paytxfee": .01,
-    "config": {
-      "port": 3338,
-      "user": "username",
-      "pass": "Do-Not-Use-This-Password-Youll-Be-Hacked-For-all-Teh-Moneys!"
-    }
-  },
-  "ppc": {
-    "paytxfee": .01,
-    "config": {
-      "port": 8832,
-      "user": "username",
-      "pass": "Do-Not-Use-This-Password-Youll-Be-Hacked-For-all-Teh-Moneys!"
-    }
-  }, 
-  "ufo": {
-    "paytxfee": .01,
-    "config": {
-      "port": 3338,
-      "user": "username",
-      "pass": "Do-Not-Use-This-Password-Youll-Be-Hacked-For-all-Teh-Moneys!"
-    }
-  },
-  "pxc": {
-    "paytxfee": .01,
-    "config": {
-      "port": 3339,
-      "user": "username",
-      "pass": "Do-Not-Use-This-Password-Youll-Be-Hacked-For-all-Teh-Moneys!"
-    }
-  },
-  "ftc": {
-    "paytxfee": .01,
-    "config": {
-      "port": 3340,
-      "user": "username",
-      "pass": "Do-Not-Use-This-Password-Youll-Be-Hacked-For-all-Teh-Moneys!"
-    }
-  },
-  "vtl": {
-    "paytxfee": .01,
-    "config": {
-      "port": 3341,
-      "user": "username",
-      "pass": "Do-Not-Use-This-Password-Youll-Be-Hacked-For-all-Teh-Moneys!"
-    }
-  },
-  "nebl": {
-    "paytxfee": .01,
-    "config": {
-      "port": 3342,
-      "user": "username",
-      "pass": "Do-Not-Use-This-Password-Youll-Be-Hacked-For-all-Teh-Moneys!"
-    }
-  },
-  "xuez": {
-    "paytxfee": .01,
-    "config": {
-      "port": 3345,
-      "user": "username",
-      "pass": "Do-Not-Use-This-Password-Youll-Be-Hacked-For-all-Teh-Moneys!"
-    }
-  },
-  "spk": {
-    "paytxfee": .01,
-    "config": {
-      "port": 8892,
+      "port": 2332,
       "user": "username",
       "pass": "Do-Not-Use-This-Password-Youll-Be-Hacked-For-all-Teh-Moneys!"
     }
