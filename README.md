@@ -2,7 +2,7 @@
 (This README will be updated along with bot updates)
 
 Features:
-- Tipbot for any coin running the bitcoind client.
+- Tipbot for the snatcoind client (will work with other daemons).
     - Help message `!tip`.
 - Dynamic plugin loading with permission support.
 - **out of the box Supported Coins**
