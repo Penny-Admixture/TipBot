@@ -5,15 +5,15 @@ const bitcoin = require('bitcoin');
 let Regex = require('regex'),
   config = require('config'),
   spamchannels = config.get('moderation').botspamchannels;
-let walletConfig = config.get('doge').config;
-let paytxfee = config.get('doge').paytxfee;
+let walletConfig = config.get('snat').config;
+let paytxfee = config.get('snat').paytxfee;
 const doge = new bitcoin.Client(walletConfig);
 
-exports.commands = ['tipdoge'];
-exports.tipdoge = {
+exports.commands = ['tipsnat'];
+exports.tipsnat = {
   usage: '<subcommand>',
   description:
-    '__**Dogecoin (DOGE) Tipper**__\nTransaction Fees: **' + paytxfee + '**\n    **!tipdoge** : Displays This Message\n    **!tipdoge balance** : get your balance\n    **!tipdoge deposit** : get address for your deposits\n    **!tipdoge withdraw <ADDRESS> <AMOUNT>** : withdraw coins to specified address\n    **!tipdoge <@user> <amount>** :mention a user with @ and then the amount to tip them\n    **!tipdoge private <user> <amount>** : put private before Mentioning a user to tip them privately.\n\n    has a default txfee of ' + paytxfee,
+    '__**Snatcoin (SNAT) Tipper**__\nTransaction Fees: **' + paytxfee + '**\n    **!tipsnat** : Displays This Message\n    **!tipsnat balance** : get your balance\n    **!tipsnat deposit** : get address for your deposits\n    **!tipsnat withdraw <ADDRESS> <AMOUNT>** : withdraw coins to specified address\n    **!tipsnat <@user> <amount>** :mention a user with @ and then the amount to tip them\n    **!tipsnat private <user> <amount>** : put private before Mentioning a user to tip them privately.\n\n    has a default txfee of ' + paytxfee,
   process: async function(bot, msg, suffix) {
     let tipper = msg.author.id.replace('!', ''),
       words = msg.content
@@ -24,7 +24,7 @@ exports.tipdoge = {
         }),
       subcommand = words.length >= 2 ? words[1] : 'help',
       helpmsg =
-        '__**Dogecoin (DOGE) Tipper**__\nTransaction Fees: **' + paytxfee + '**\n    **!tipdoge** : Displays This Message\n    **!tipdoge balance** : get your balance\n    **!tipdoge deposit** : get address for your deposits\n    **!tipdoge withdraw <ADDRESS> <AMOUNT>** : withdraw coins to specified address\n    **!tipdoge <@user> <amount>** :mention a user with @ and then the amount to tip them\n    **!tipdoge private <user> <amount>** : put private before Mentioning a user to tip them privately.\n\n    **<> : Replace with appropriate value.**',
+        '__**Snatcoin (SNAT) Tipper**__\nTransaction Fees: **' + paytxfee + '**\n    **!tipsnat** : Displays This Message\n    **!tipsnat balance** : get your balance\n    **!tipsnat deposit** : get address for your deposits\n    **!tipsnat withdraw <ADDRESS> <AMOUNT>** : withdraw coins to specified address\n    **!tipsnat <@user> <amount>** :mention a user with @ and then the amount to tip them\n    **!tipsnat private <user> <amount>** : put private before Mentioning a user to tip them privately.\n\n    **<> : Replace with appropriate value.**',
       channelwarning = 'Please use <#bot-spam> or DMs to talk to bots.';
     switch (subcommand) {
       case 'help':
@@ -60,10 +60,10 @@ function doHelp(message, helpmsg) {
 function doBalance(message, tipper) {
   doge.getBalance(tipper, 1, function(err, balance) {
     if (err) {
-      message.reply('Error getting Dogecoin (DOGE) balance.').then(message => message.delete(10000));
+      message.reply('Error getting Snatcoin (SNAT) balance.').then(message => message.delete(10000));
     } else {
     message.channel.send({ embed: {
-    description: '**:bank::money_with_wings::moneybag:Dogecoin (DOGE) Balance!:moneybag::money_with_wings::bank:**',
+    description: '**:bank::money_with_wings::moneybag:Snatcoin (SNAT) Balance!:moneybag::money_with_wings::bank:**',
     color: 1363892,
     fields: [
       {
@@ -85,10 +85,10 @@ function doBalance(message, tipper) {
 function doDeposit(message, tipper) {
   getAddress(tipper, function(err, address) {
     if (err) {
-      message.reply('Error getting your Dogecoin (DOGE) deposit address.').then(message => message.delete(10000));
+      message.reply('Error getting your Snatcoin (SNAT) deposit address.').then(message => message.delete(10000));
     } else {
     message.channel.send({ embed: {
-    description: '**:bank::card_index::moneybag:Dogecoin (DOGE) Address!:moneybag::card_index::bank:**',
+    description: '**:bank::card_index::moneybag:Snatcoin (SNAT) Address!:moneybag::card_index::bank:**',
     color: 1363892,
     fields: [
       {
@@ -117,16 +117,16 @@ function doWithdraw(message, tipper, words, helpmsg) {
     amount = getValidatedAmount(words[3]);
 
   if (amount === null) {
-    message.reply("I don't know how to withdraw that much Dogecoin (DOGE)...").then(message => message.delete(10000));
+    message.reply("I don't know how to withdraw that much Snatcoin (SNAT)...").then(message => message.delete(10000));
     return;
   }
 
   doge.getBalance(tipper, 1, function(err, balance) {
     if (err) {
-      message.reply('Error getting Dogecoin (DOGE) balance.').then(message => message.delete(10000));
+      message.reply('Error getting Snatcoin (SNAT) balance.').then(message => message.delete(10000));
     } else {
       if (Number(amount) + Number(paytxfee) > Number(balance)) {
-        message.channel.send('Please leave atleast ' + paytxfee + ' Dogecoin (DOGE) for transaction fees!');
+        message.channel.send('Please leave atleast ' + paytxfee + ' Snatcoin (SNAT) for transaction fees!');
         return;
       }
       doge.sendFrom(tipper, address, Number(amount), function(err, txId) {
@@ -134,7 +134,7 @@ function doWithdraw(message, tipper, words, helpmsg) {
           message.reply(err.message).then(message => message.delete(10000));
         } else {
         message.channel.send({embed:{
-        description: '**:outbox_tray::money_with_wings::moneybag:Dogecoin (DOGE) Transaction Completed!:moneybag::money_with_wings::outbox_tray:**',
+        description: '**:outbox_tray::money_with_wings::moneybag:Snatcoin (SNAT) Transaction Completed!:moneybag::money_with_wings::outbox_tray:**',
         color: 1363892,
         fields: [
           {
@@ -185,16 +185,16 @@ function doTip(bot, message, tipper, words, helpmsg) {
   let amount = getValidatedAmount(words[amountOffset]);
 
   if (amount === null) {
-    message.reply("I don't know how to tip that much Dogecoin (DOGE)...").then(message => message.delete(10000));
+    message.reply("I don't know how to tip that much Snatcoin (SNAT)...").then(message => message.delete(10000));
     return;
   }
 
   doge.getBalance(tipper, 1, function(err, balance) {
     if (err) {
-      message.reply('Error getting Dogecoin (DOGE) balance.').then(message => message.delete(10000));
+      message.reply('Error getting Snatcoin (SNAT) balance.').then(message => message.delete(10000));
     } else {
       if (Number(amount) + Number(paytxfee) > Number(balance)) {
-        message.channel.send('Please leave atleast ' + paytxfee + ' Dogecoin (DOGE) for transaction fees!');
+        message.channel.send('Please leave atleast ' + paytxfee + ' Snatcoin (SNAT) for transaction fees!');
         return;
       }
 
@@ -225,7 +225,7 @@ function sendDOGE(bot, message, tipper, recipient, amount, privacyFlag) {
                 if (privacyFlag) {
                   let userProfile = message.guild.members.find('id', recipient);
                   userProfile.user.send({ embed: {
-                  description: '**:money_with_wings::moneybag:Dogecoin (DOGE) Transaction Completed!:moneybag::money_with_wings:**',
+                  description: '**:money_with_wings::moneybag:Snatcoin (SNAT) Transaction Completed!:moneybag::money_with_wings:**',
                   color: 1363892,
                   fields: [
                     {
@@ -256,7 +256,7 @@ function sendDOGE(bot, message, tipper, recipient, amount, privacyFlag) {
                   ]
                 } });
                 message.author.send({ embed: {
-                description: '**:money_with_wings::moneybag:Dogecoin (DOGE) Transaction Completed!:moneybag::money_with_wings:**',
+                description: '**:money_with_wings::moneybag:Snatcoin (SNAT) Transaction Completed!:moneybag::money_with_wings:**',
                 color: 1363892,
                 fields: [
                   {
@@ -288,13 +288,13 @@ function sendDOGE(bot, message, tipper, recipient, amount, privacyFlag) {
                 ]
               } });
                   if (
-                    message.content.startsWith('!tipdoge private ')
+                    message.content.startsWith('!tipsnat private ')
                   ) {
                     message.delete(1000); //Supposed to delete message
                   }
                 } else {
                   message.channel.send({ embed: {
-                  description: '**:money_with_wings::moneybag:Dogecoin (DOGE) Transaction Completed!:moneybag::money_with_wings:**',
+                  description: '**:money_with_wings::moneybag:Snatcoin (SNAT) Transaction Completed!:moneybag::money_with_wings:**',
                   color: 1363892,
                   fields: [
                     {
@@ -364,16 +364,16 @@ function isSpam(msg) {
 
 function getValidatedAmount(amount) {
   amount = amount.trim();
-  if (amount.toLowerCase().endsWith('doge')) {
+  if (amount.toLowerCase().endsWith('snat')) {
     amount = amount.substring(0, amount.length - 3);
   }
   return amount.match(/^[0-9]+(\.[0-9]+)?$/) ? amount : null;
 }
 
 function txLink(txId) {
-  return 'https://dogechain.info/tx/' + txId;
+  return 'http://snatcoin.org:3001/tx/' + txId;
 }
 
 function addyLink(address) {
-  return 'https://dogechain.info/address/' + address;
+  return 'http://snatcoin.org:3001/address/' + address;
 }
