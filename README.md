@@ -1,4 +1,4 @@
-# Bot for Discord communities to facilitate crypto coin tipping!
+# Bot for Discord communities to facilitate Snatcoin tipping!
 (This README will be updated along with bot updates)
 
 Features:
