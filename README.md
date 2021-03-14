@@ -121,3 +121,5 @@ to run prettier before submitting your code simply run the following in the bots
 ```
 yarn precommit
 ```
+
+Don't forget to run node ./bot/bot.js in order to invite the bot into your Discord channel
